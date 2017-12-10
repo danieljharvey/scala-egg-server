@@ -16,7 +16,7 @@ object MySQL {
   )
 
   def getLevel (levelID: Int) : Option[String] = {
-    lazy val ctx = new MysqlJdbcContext(SnakeCase, "ctx")
+    var connection:Connection = null
     try {
       Class.forName(dbOptions("driver"))
       connection = DriverManager.getConnection(dbOptions("url"), dbOptions("username"), dbOptions("password"))
