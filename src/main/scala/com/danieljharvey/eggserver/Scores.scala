@@ -8,9 +8,9 @@ object Scores {
 
     type ScoreList = List[ScoreRow]
 
-    def tryToInt( s: String ) = Try(s.toInt).toOption
+    val tryToInt = ( s: String ) => Try(s.toInt).toOption
 
-    def getScoresFromString (levelIDString: String) = {
+    def getScoresFromString(levelIDString: String) = {
         tryToInt(levelIDString)
             .filter(overZero)
             .flatMap(getScoresForLevelID)
@@ -18,9 +18,9 @@ object Scores {
             .getOrElse("No scores found")
     }
 
-    def overZero = (x: Int) => (x > 0)
+    val overZero = (x: Int) => (x > 0)
 
-    def getScoresForLevelID (levelID: Int) = {
+    def getScoresForLevelID(levelID: Int) = {
         MySQL.getScoresForLevel(levelID)
     }
 
@@ -60,22 +60,11 @@ object Scores {
         )
     }
 
-    def countItems (scoreList: ScoreList) : Int = {
+    def countItems(scoreList: ScoreList) : Int = {
         scoreList.length
     }
-    /**
-    def statsToMap (key: String, scoreList: ScoreList) : ScoreStats = {
-        Map(
-            "min" -> scoreList
-                        .map(item -> (item[key]))
-                        .map(statMin)
-        )
-    }
 
-    def statMin (nums: List[Int]) = {
-        nums.foldLeft((total, item) => {
-            return (item < total) ? item : total
-        })
-    }**/
+
+    def statMin(nums: List[Int]) = nums.min
 
 }
