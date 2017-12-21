@@ -1,5 +1,5 @@
-package com.danieljharvey.eggserver
-
+// package com.danieljharvey.eggserver
+/*
 import scala.util.Try
 
 object Scores {
@@ -14,7 +14,7 @@ object Scores {
         tryToInt(levelIDString)
             .filter(overZero)
             .flatMap(getScoresForLevelID)
-            .map(scoreListToStats)
+            //.map(scoreListToStats)
             .getOrElse("No scores found")
     }
 
@@ -24,19 +24,20 @@ object Scores {
         MySQL.getScoresForLevel(levelID)
     }
 
-    type ScoreStats = Map[String,Int]
+    final case class ScoreStats(min: Int, max: Int, average: Int)
 
     case class ScoreTotals(totalCompleted: Int, rotationsUsed: ScoreStats, score: ScoreStats)
+    
 
     def scoreDefaults() : ScoreTotals = {
         ScoreTotals(
             0,
-            Map(
+            (
                 "min" -> 0,
                 "max" -> 0,
                 "average" -> 0
             ),
-            Map(
+            (
                 "min" -> 0,
                 "max" -> 0,
                 "average" -> 0
@@ -45,19 +46,20 @@ object Scores {
     }
 
     def scoreListToStats(scoreList: ScoreList) : ScoreTotals = {
-        ScoreTotals(
-            countItems(scoreList),
-            Map(
-                "min" -> 0,
-                "max" -> 0,
-                "average" -> 0
-            ),
-            Map(
-                "min" -> 0,
-                "max" -> 0,
-                "average" -> 0
-            )
-        )
+        scoreDefaults()
+        //ScoreTotals(
+        //    countItems(scoreList),
+        //    Map(
+        //        "min" -> 0,
+        //        "max" -> 0,
+        //        "average" -> 0
+        //    ),
+        //    Map(
+        //        "min" -> 0,
+        //        "max" -> 0,
+        //        "average" -> 0
+        //    )
+        //)
     }
 
     def countItems(scoreList: ScoreList) : Int = {
@@ -67,4 +69,4 @@ object Scores {
 
     def statMin(nums: List[Int]) = nums.min
 
-}
+}*/
