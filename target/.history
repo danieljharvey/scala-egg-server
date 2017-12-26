@@ -1,20 +1,7 @@
-run
-code .
-exit
 jetty:start
-~;jetty:stop;jetty:start
-run
-~;jetty:stop;jetty:start
+sbt compile
+compile
+reload
+jetty:start
 exit
-~;jetty:stop;jetty:start
-exit
-~;jetty:stop;jetty:start
-run
-exit
-~;jetty:stop;jetty:start
-exit
-~;jetty:stop;jetty:start
-exit
-~;jetty:stop;jetty:start
-jetty:run
 jetty:start

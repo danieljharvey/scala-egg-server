@@ -1,0 +1,10 @@
+import scala.util.Properties
+
+ctx.dataSourceClassName=com.mysql.jdbc.jdbc2.optional.MysqlDataSource
+ctx.dataSource.url=jdbc:mysql://127.0.0.1/itistheegg
+ctx.dataSource.user=username
+ctx.dataSource.password=password
+ctx.dataSource.cachePrepStmts=true
+ctx.dataSource.prepStmtCacheSize=250
+ctx.dataSource.prepStmtCacheSqlLimit=2048
+ctx.connectionTimeout=30000

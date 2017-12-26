@@ -2,7 +2,7 @@ package com.danieljharvey.eggserver
 
 import scala.util.Try
 
-object Levels {
+object LevelsLoader {
 
     def tryToInt( s: String ) = Try(s.toInt).toOption
 
