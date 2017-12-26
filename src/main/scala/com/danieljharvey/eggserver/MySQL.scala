@@ -13,4 +13,18 @@ object MySQL {
     ctx.run(select).headOption
   }
 
+  def getScoresForLevel (levelID: Int): Option[List[Scores]] = {
+    val select = quote {
+      query[Scores].filter(_.levelID == lift(levelID))
+    }
+    emptyOrNone(ctx.run(select))
+  }
+
+  def emptyOrNone (scores: List[Scores]): Option[List[Scores]] = {
+    scores match {
+      case Nil => None
+      case x => Some(x)
+    }
+  }
+
 }

@@ -22,9 +22,9 @@ class MyScalatraServlet extends ScalatraServlet {
     <p>Saving data for levelID {params("levelID")}</p>
   }
 
-  //get("/scores/:levelID") {
-   //Scores.getScoresFromString(params("levelID"))
-  //}
+  get("/scores/:levelID") {
+    ScoresLoader.getScoresFromString(params("levelID"))
+  }
 
   put("/scores/:levelID") {
     <p>Let's save stats for level {params("levelID")}</p>
