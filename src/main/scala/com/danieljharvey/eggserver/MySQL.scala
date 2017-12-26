@@ -10,7 +10,6 @@ object MySQL {
     val select = quote {
       query[Levels].filter(_.levelID == lift(levelID)).map(_.data)
     }
-    println(select)
     ctx.run(select).headOption
   }
 
