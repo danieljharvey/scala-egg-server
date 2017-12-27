@@ -15,7 +15,7 @@ class MyScalatraServlet extends ScalatraServlet {
   get("/levels/:levelID") {
     // Matches "GET /hello/foo" and "GET /hello/bar"
     // params("name") is "foo" or "bar"
-    LevelsLoader.getLevelFromString(params("levelID"))
+    LevelsLoader.getLevelFromString(params("levelID")).getOrElse("Bum")
   }
 
   put("/levels/:levelID") {
@@ -23,7 +23,8 @@ class MyScalatraServlet extends ScalatraServlet {
   }
 
   get("/scores/:levelID") {
-    ScoresLoader.getScoresFromString(params("levelID"))
+    val scoreTotals = ScoresLoader.getScoresFromString(params("levelID"))
+    ScoresLoader.jsonStringify(scoreTotals)
   }
 
   put("/scores/:levelID") {

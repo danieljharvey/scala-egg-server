@@ -17,7 +17,10 @@ libraryDependencies ++= Seq(
   "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container",
   "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided",
   "mysql" % "mysql-connector-java" % "5.1.38",
-  "io.getquill" %% "quill-jdbc" % "2.3.1"
+  "io.getquill" %% "quill-jdbc" % "2.3.1",
+  "net.liftweb" %% "lift-json" % "3.0.2",
+  "com.kailuowang" %% "henkan-convert" % "0.4.4",
+  "com.kailuowang" %% "henkan-optional" % "0.4.4"
 )
 
 enablePlugins(SbtTwirl)

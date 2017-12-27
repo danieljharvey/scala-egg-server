@@ -2,7 +2,14 @@ package com.danieljharvey.eggserver
 
 import scala.util.Try
 
+import net.liftweb.json._
+import net.liftweb.json.Serialization.write
+
 object ScoresLoader {
+
+    case class ScoreStats(min: Int, max: Int, average: Int)
+
+    case class ScoreTotals(totalCompleted: Int, rotationsUsed: ScoreStats, score: ScoreStats)
 
     type ScoreList = List[Scores]
 
@@ -10,7 +17,7 @@ object ScoresLoader {
 
     val tryToInt = ( s: String ) => Try(s.toInt).toOption
 
-    def getScoresFromString(levelIDString: String) = {
+    def getScoresFromString(levelIDString: String): ScoreTotals = {
         tryToInt(levelIDString)
             .filter(overZero)
             .flatMap(getScoresForLevelID)
@@ -24,10 +31,7 @@ object ScoresLoader {
         MySQL.getScoresForLevel(levelID)
     }
 
-    final case class ScoreStats(min: Int, max: Int, average: Int)
-
-    case class ScoreTotals(totalCompleted: Int, rotationsUsed: ScoreStats, score: ScoreStats)
-
+   
     def scoreDefaults() : ScoreTotals = {
         ScoreTotals(
             0,
@@ -66,6 +70,11 @@ object ScoresLoader {
 
     def mean(intList: IntList): Int = {
         intList.sum / intList.length
+    }
+
+    def jsonStringify(scoreTotals: ScoreTotals): String = {
+        implicit val formats = DefaultFormats
+        write(scoreTotals)
     }
 
 }

@@ -5,3 +5,19 @@ reload
 jetty:start
 exit
 jetty:start
+exit
+jetty:start
+scala -v
+ext
+exit
+ext
+jetty:start
+ext
+exit
+jetty:start
+exit
+jetty:start
+exit
+jetty:start
+exit
+jetty:start
