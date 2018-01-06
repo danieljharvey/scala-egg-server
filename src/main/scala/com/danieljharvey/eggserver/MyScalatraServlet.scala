@@ -27,7 +27,8 @@ class MyScalatraServlet extends ScalatraServlet {
     ScoresLoader.jsonStringify(scoreTotals)
   }
 
-  put("/scores/:levelID") {
+  post("/scores/:levelID") {
+    ScoresLoader.saveScoresForLevelString(params("levelID"), request.body).getOrElse("failure")
     <p>Let's save stats for level {params("levelID")}</p>
   }
 

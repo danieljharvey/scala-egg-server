@@ -1,6 +1,7 @@
 package com.danieljharvey.eggserver
 
 import db._
+import ScoresLoader.SaveScoreRow
 
 object MySQL {
 
@@ -18,6 +19,13 @@ object MySQL {
       query[Scores].filter(_.levelID == lift(levelID))
     }
     emptyOrNone(ctx.run(select))
+  }
+
+  def saveScoresForLevel(scoreRow: SaveScoreRow) = {
+    val insert = quote {
+      query[Scores].insert(lift(Scores(scoreID=0,levelID=scoreRow.levelID, rotationsUsed=scoreRow.rotationsUsed, score=scoreRow.score)))
+    }
+    ctx.run(insert)
   }
 
   def emptyOrNone (scores: List[Scores]): Option[List[Scores]] = {

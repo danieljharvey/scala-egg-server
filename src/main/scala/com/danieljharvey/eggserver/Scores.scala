@@ -11,6 +11,10 @@ object ScoresLoader {
 
     case class ScoreTotals(totalCompleted: Int, rotationsUsed: ScoreStats, score: ScoreStats)
 
+    case class ScoreRow(rotationsUsed: Int, score: Int)
+
+    case class SaveScoreRow(levelID: Int, rotationsUsed: Int, score: Int)
+
     type ScoreList = List[Scores]
 
     type IntList = List[Int]
@@ -75,6 +79,36 @@ object ScoresLoader {
     def jsonStringify(scoreTotals: ScoreTotals): String = {
         implicit val formats = DefaultFormats
         write(scoreTotals)
+    }
+
+    def saveScoresForLevelString(levelIDString: String, body: String) = {
+        
+        val levelID = tryToInt(levelIDString)
+
+        tryToDecodeJSON(body)
+            .flatMap(combineWithLevelID(levelID))
+            .map(MySQL.saveScoresForLevel)
+            .map(println)
+    }
+
+    def tryToDecodeJSON = ( json: String ) => Try(decodeScoresJSON(json)).toOption
+
+    def decodeScoresJSON(jsonString: String): ScoreRow = {
+
+        // needed for Lift-JSON
+        implicit val formats = DefaultFormats
+
+        // convert the JSON string to a JValue object
+        val jValue = parse(jsonString)
+
+        // deserialize the string into a Stock object
+        jValue.extract[ScoreRow]
+    }
+
+    def combineWithLevelID(maybeLevelID: Option[Int])(scoreRow: ScoreRow): Option[SaveScoreRow] = {
+        maybeLevelID.map(levelID => 
+            SaveScoreRow(levelID=levelID, rotationsUsed=scoreRow.rotationsUsed, score=scoreRow.score)
+        )
     }
 
 }
